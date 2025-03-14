@@ -18,3 +18,5 @@ CREATE TABLE admins (
 );
 
 INSERT INTO admins (username, password) VALUES ('admin', 'admin123');
+
+ALTER TABLE users ADD COLUMN sell ENUM('yes', 'no', 'pending') DEFAULT 'no';

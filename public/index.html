@@ -5,7 +5,7 @@
 	</head>
 	<body>
 		<h2>Login</h2>
-		<form action="/login" method="post">
+		<form id="login-form">
 			<input
 				type="text"
 				name="username"
@@ -20,6 +20,30 @@
 			/>
 			<button type="submit">Login</button>
 		</form>
+		<p id="error-message" style="color: red"></p>
 		<a href="signup.html">Signup</a>
+
+		<script>
+			document.getElementById("login-form").onsubmit = async (e) => {
+				e.preventDefault();
+				const formData = new URLSearchParams(new FormData(e.target));
+
+				const response = await fetch("/login", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/x-www-form-urlencoded",
+					},
+					body: formData,
+				});
+
+				const result = await response.json(); // Expect JSON response
+				if (result.success) {
+					window.location.href = result.redirect; // Redirect manually
+				} else {
+					document.getElementById("error-message").textContent =
+						result.message;
+				}
+			};
+		</script>
 	</body>
 </html>

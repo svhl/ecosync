@@ -5,23 +5,33 @@
 		<script>
 			function handleLogin(event) {
 				event.preventDefault();
-				let formData = new FormData(
+
+				const formData = new FormData(
 					document.getElementById("admin-form")
 				);
 
 				fetch("/admin-login", {
 					method: "POST",
+					headers: {
+						"Content-Type": "application/x-www-form-urlencoded",
+					},
 					body: new URLSearchParams(formData),
 				})
 					.then((response) => response.text())
 					.then((result) => {
-						if (result === "Admin login successful.") {
-							window.location.href = "admin-panel.html";
-						} else {
+						if (result.includes("Invalid")) {
 							alert(result);
+						} else {
+							window.location.href = "admin-panel.html"; // ✅ Redirect on success
 						}
-					});
+					})
+					.catch((error) => console.error("Error:", error));
 			}
+
+			// Make sure form submission calls handleLogin
+			document.addEventListener("DOMContentLoaded", () => {
+				document.getElementById("admin-form").onsubmit = handleLogin;
+			});
 		</script>
 	</head>
 	<body>

@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Admin Approval Panel</title>
+		<title>Admin Panel</title>
 	</head>
 	<body>
 		<h2>Unapproved Users</h2>
 		<div id="user-list"></div>
+
+		<h2>Pending Sell Approvals</h2>
+		<div id="sell-list"></div>
 
 		<script>
 			function fetchUsers() {
@@ -16,9 +19,24 @@
 						userList.innerHTML = "";
 						users.forEach((user) => {
 							let div = document.createElement("div");
-							div.innerHTML = `${user.username} - ${user.type} - ${user.map} 
+							div.innerHTML = `${user.username} 
 							<button onclick="approveUser('${user.username}')">Approve</button>`;
 							userList.appendChild(div);
+						});
+					});
+			}
+
+			function fetchSellApprovals() {
+				fetch("/pending-sell-approvals")
+					.then((response) => response.json())
+					.then((users) => {
+						let sellList = document.getElementById("sell-list");
+						sellList.innerHTML = "";
+						users.forEach((user) => {
+							let div = document.createElement("div");
+							div.innerHTML = `${user.username} 
+							<button onclick="approveSell('${user.username}')">Approve Sell</button>`;
+							sellList.appendChild(div);
 						});
 					});
 			}
@@ -27,13 +45,36 @@
 				fetch("/approve-user", {
 					method: "POST",
 					headers: {
-						"Content-Type": "application/x-www-form-urlencoded",
+						"Content-Type": "application/json",
 					},
-					body: `username=${username}`,
-				}).then(() => fetchUsers());
+					body: JSON.stringify({ username: username }),
+				})
+					.then((response) => response.text())
+					.then((message) => {
+						alert(message);
+						fetchUsers(); // Refresh list after approval
+					})
+					.catch((error) => console.error("Error:", error));
+			}
+
+			function approveSell(username) {
+				fetch("/approve-sell", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({ username: username }),
+				})
+					.then((response) => response.text())
+					.then((message) => {
+						alert(message);
+						fetchSellApprovals(); // Refresh list after approval
+					})
+					.catch((error) => console.error("Error:", error));
 			}
 
 			fetchUsers();
+			fetchSellApprovals();
 		</script>
 	</body>
 </html>
