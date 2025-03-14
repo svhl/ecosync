@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Admin Approval Panel</title>
+	</head>
+	<body>
+		<h2>Unapproved Users</h2>
+		<div id="user-list"></div>
+
+		<script>
+			function fetchUsers() {
+				fetch("/unapproved-users")
+					.then((response) => response.json())
+					.then((users) => {
+						let userList = document.getElementById("user-list");
+						userList.innerHTML = "";
+						users.forEach((user) => {
+							let div = document.createElement("div");
+							div.innerHTML = `${user.username} - ${user.type} - ${user.map} 
+							<button onclick="approveUser('${user.username}')">Approve</button>`;
+							userList.appendChild(div);
+						});
+					});
+			}
+
+			function approveUser(username) {
+				fetch("/approve-user", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/x-www-form-urlencoded",
+					},
+					body: `username=${username}`,
+				}).then(() => fetchUsers());
+			}
+
+			fetchUsers();
+		</script>
+	</body>
+</html>

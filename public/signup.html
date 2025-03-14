@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Signup</title>
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/leaflet/dist/leaflet.css"
+		/>
+		<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+		<script>
+			function showPendingPopup() {
+				alert("Signup successful. Your account is pending approval.");
+			}
+		</script>
+	</head>
+	<body>
+		<h2>Signup</h2>
+		<form action="/signup" method="post" onsubmit="showPendingPopup()">
+			<input
+				type="text"
+				name="username"
+				placeholder="Username"
+				required
+			/>
+			<input
+				type="password"
+				name="password"
+				placeholder="Password"
+				required
+			/>
+			<input
+				type="text"
+				name="industry"
+				placeholder="Industry"
+				required
+			/>
+			<input
+				type="text"
+				id="coordinates"
+				name="map"
+				placeholder="Click on map for coordinates"
+				required
+				readonly
+			/>
+			<input type="text" name="contact" placeholder="Contact" required />
+			<select name="type" required>
+				<option value="Biscuit Industry">Biscuit Industry</option>
+				<option value="Ice Cream Industry">Ice Cream Industry</option>
+				<option value="Wheat Industry">Wheat Industry</option>
+				<option value="Dairy Industry">Dairy Industry</option>
+				<option value="Sugar Industry">Sugar Industry</option>
+			</select>
+			<button type="submit">Signup</button>
+		</form>
+
+		<div id="map" style="height: 300px; width: 100%"></div>
+
+		<script>
+			var map = L.map("map").setView([20.5937, 78.9629], 5);
+			L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+				attribution: "&copy; OpenStreetMap contributors",
+			}).addTo(map);
+
+			var marker;
+			map.on("click", function (e) {
+				if (marker) {
+					map.removeLayer(marker);
+				}
+				marker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);
+				document.getElementById("coordinates").value =
+					e.latlng.lat + "," + e.latlng.lng;
+			});
+		</script>
+	</body>
+</html>
