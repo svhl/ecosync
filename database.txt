@@ -1,0 +1,20 @@
+CREATE DATABASE mydatabase;
+
+USE mydatabase;
+
+CREATE TABLE users (
+	username VARCHAR(50) PRIMARY KEY,
+	password VARCHAR(50) NOT NULL,
+	industry VARCHAR(100) NOT NULL,
+	map TEXT NOT NULL,
+	contact VARCHAR(100) NOT NULL,
+	type VARCHAR(100) NOT NULL,
+	approved ENUM('yes', 'no') DEFAULT 'no'
+);
+
+CREATE TABLE admins (
+	username VARCHAR(50) PRIMARY KEY,
+	password VARCHAR(50) NOT NULL
+);
+
+INSERT INTO admins (username, password) VALUES ('admin', 'admin123');
