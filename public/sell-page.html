@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Seller Listing</title>
+    </head>
+    <body>
+        <h1>Create a Listing</h1>
+        <form method="POST" action="/submit-listing">
+            <label for="productName">Product Name:</label>
+            <input type="text" id="productName" name="productName" required />
+            <br /><br />
+
+            <label for="quantityPerMonth">Quantity per Month:</label>
+            <input
+                type="number"
+                id="quantityPerMonth"
+                name="quantityPerMonth"
+                required
+            />
+            <br /><br />
+
+            <label for="productType">Product Type:</label>
+            <select id="productType" name="productType" required>
+                <option value="rawMaterial">Raw Material</option>
+                <option value="byProduct">By Product</option>
+                <option value="equipment">Equipment</option>
+            </select>
+            <br /><br />
+
+            <input type="submit" value="Submit" />
+        </form>
+    </body>
+</html>
