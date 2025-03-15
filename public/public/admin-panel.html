@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Admin Panel</title>
+        <!-- Link to the external CSS file -->
+        <link rel="stylesheet" href="adminpanel.css">
+	</head>
+	<body>
+		<h2>Unapproved Users</h2>
+		<div id="user-list"></div>
+
+		<h2>Pending Sell Approvals</h2>
+		<div id="sell-list"></div>
+
+		<script>
+			function fetchUsers() {
+				fetch("/unapproved-users")
+					.then((response) => response.json())
+					.then((users) => {
+						let userList = document.getElementById("user-list");
+						userList.innerHTML = "";
+						users.forEach((user) => {
+							let div = document.createElement("div");
+							div.innerHTML = `${user.username} 
+							<button onclick="approveUser('${user.username}')">Approve</button>`;
+							userList.appendChild(div);
+						});
+					});
+			}
+
+			function fetchSellApprovals() {
+				fetch("/pending-sell-approvals")
+					.then((response) => response.json())
+					.then((users) => {
+						let sellList = document.getElementById("sell-list");
+						sellList.innerHTML = "";
+						users.forEach((user) => {
+							let div = document.createElement("div");
+							div.innerHTML = `${user.username} 
+							<button onclick="approveSell('${user.username}')">Approve Sell</button>`;
+							sellList.appendChild(div);
+						});
+					});
+			}
+
+			function approveUser(username) {
+				fetch("/approve-user", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({ username: username }),
+				})
+					.then((response) => response.text())
+					.then((message) => {
+						alert(message);
+						fetchUsers(); // Refresh list after approval
+					})
+					.catch((error) => console.error("Error:", error));
+			}
+
+			function approveSell(username) {
+				fetch("/approve-sell", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({ username: username }),
+				})
+					.then((response) => response.text())
+					.then((message) => {
+						alert(message);
+						fetchSellApprovals(); // Refresh list after approval
+					})
+					.catch((error) => console.error("Error:", error));
+			}
+
+			fetchUsers();
+			fetchSellApprovals();
+		</script>
+	</body>
+</html>
