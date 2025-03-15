@@ -1,222 +1,220 @@
 /* Import Google Font */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Poppins", sans-serif;
 }
 
 /* Background with Small Dots */
 body {
-    background-color: #f0f0f0;
-    background-image: radial-gradient(circle, rgba(0, 0, 0, 0.2) 10%, transparent 20%);
-    background-size: 10px 10px; /* Adjust size of dots */
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    overflow: hidden;
-    overflow-y: auto;
+	background-color: #f0f0f0;
+	background-image: radial-gradient(
+		circle,
+		rgba(0, 0, 0, 0.2) 10%,
+		transparent 20%
+	);
+	background-size: 10px 10px; /* Adjust size of dots */
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	overflow: hidden;
+	overflow-y: auto;
 }
 
 /* Navbar - Hidden by Default */
 nav {
-    position: fixed;
-    top: -60px; /* Hidden initially */
-    left: 0;
-    width: 100%;
-    background-color: black;
-    backdrop-filter: blur(10px);
-    padding: 20px 0;
-    text-align: center;
-    transition: top 0.5s ease-in-out;
-    justify-content: space-around;
-    align-items: center;
+	position: fixed;
+	top: -60px; /* Hidden initially */
+	left: 0;
+	width: 100%;
+	background-color: black;
+	backdrop-filter: blur(10px);
+	padding: 20px 0;
+	text-align: center;
+	transition: top 0.5s ease-in-out;
+	justify-content: space-around;
+	align-items: center;
 }
 
 /* Show Navbar when Hovering at the Top */
 body:hover nav {
-    top: 0;
+	top: 0;
 }
 
 /* Hide Navbar when Moving Away */
 nav:hover {
-    top: 0;
+	top: 0;
 }
 
 body:not(:hover) nav {
-    top: -80px;
+	top: -80px;
 }
 
 /* Navbar Links */
 nav a {
-    color: white;
-    text-decoration: none;
-    font-size: 16px;
-    align-items: center;
-    margin: 0 15px;
-    padding: 10px 15px;
-    border-radius: 8px;
-    transition: 1s;
-    justify-content: center;
-
+	color: white;
+	text-decoration: none;
+	font-size: 16px;
+	align-items: center;
+	margin: 0 15px;
+	padding: 10px 15px;
+	border-radius: 8px;
+	transition: 1s;
+	justify-content: center;
 }
 
 /* Hover Effect for Links */
 nav a:hover {
-    
-    color: #16a34a;
-    transform: scale(1.1);
-};
+	color: #16a34a;
+	transform: scale(1.1);
+}
 
 /* Heading */
 .heading h2 {
-    position: relative;
-    display: inline-block;
-   margin-top: 100px;
-    
+	position: relative;
+	display: inline-block;
+	margin-top: 100px;
 }
-h1{
-    margin-top: 120px;
-    margin-bottom: 30px;
-    font-size: x-large;
-    font-style: italic;
+h1 {
+	margin-top: 120px;
+	margin-bottom: 30px;
+	font-size: x-large;
+	font-style: italic;
 }
-p{
-    margin-top:50px;
+p {
+	margin-top: 50px;
 }
 
-.half{
-
-    color:#16a34a;
-    font-size: 75px;
-    font-style: normal;
+.half {
+	color: #16a34a;
+	font-size: 75px;
+	font-style: normal;
 }
 .dashboard-intro {
-    margin-top: 50px;
-    margin-bottom: 20px;;
-    width: 80%; /* Makes the box bigger */
-    max-width: 900px; /* Prevents it from getting too wide */
-    margin: 20px auto; /* Centers the box */
-    padding: 20px; /* Adds spacing inside the box */
-    text-align: center; /* Centers the text */
-    background: white; /* Optional: Add background color */
-    border-radius: 10px; /* Optional: Rounded corners */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Optional: Soft shadow */
-    font-size: 18px; /* Increase text size */
-    line-height: 1.8; /* More readable spacing */
-    transition: 1s;
-    color:white;
-    background: linear-gradient(45deg, #232526, #414345);
+	margin-top: 50px;
+	margin-bottom: 20px;
+	width: 80%; /* Makes the box bigger */
+	max-width: 900px; /* Prevents it from getting too wide */
+	margin: 20px auto; /* Centers the box */
+	padding: 20px; /* Adds spacing inside the box */
+	text-align: center; /* Centers the text */
+	background: white; /* Optional: Add background color */
+	border-radius: 10px; /* Optional: Rounded corners */
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Optional: Soft shadow */
+	font-size: 18px; /* Increase text size */
+	line-height: 1.8; /* More readable spacing */
+	transition: 1s;
+	color: white;
+	background: linear-gradient(45deg, #232526, #414345);
 }
 
-
-
-.dashboard-intro:hover{
-    transform: scale(1.05);
+.dashboard-intro:hover {
+	transform: scale(1.05);
 }
 .logout {
-    background: #ff4d4d;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 5px;
-    color: white;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background 0.3s ease-in-out;
-    transition: 1s;
+	background: #ff4d4d;
+	border: none;
+	padding: 8px 15px;
+	border-radius: 5px;
+	color: white;
+	font-size: 14px;
+	cursor: pointer;
+	transition: background 0.3s ease-in-out;
+	transition: 1s;
 }
 
 .logout:hover {
-    background: #cc0000;
-    box-shadow: 0 4px 10px rgba(255, 77, 77, 0.5); /* Soft red shadow */
-    transform: scale(1.05);
+	background: #cc0000;
+	box-shadow: 0 4px 10px rgba(255, 77, 77, 0.5); /* Soft red shadow */
+	transform: scale(1.05);
 }
 
 h1 {
-    position: relative;
-    display: inline-block;
-    font-size: 36px; /* Adjust size as needed */
-    font-weight: 600;
-    text-align: center;
-    margin-top: 100px;
+	position: relative;
+	display: inline-block;
+	font-size: 36px; /* Adjust size as needed */
+	font-weight: 600;
+	text-align: center;
+	margin-top: 100px;
 }
 
 h1::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -5px; /* Adjust underline position */
-    width: 0%;
-    height: 3px;
-    background-color: black;
-    transition: width 0.5s ease-in-out;
+	content: "";
+	position: absolute;
+	left: 0;
+	bottom: -5px; /* Adjust underline position */
+	width: 0%;
+	height: 3px;
+	background-color: black;
+	transition: width 0.5s ease-in-out;
 }
 
 h1:hover::after {
-    width: 100%;
+	width: 100%;
 }
 
 /* Features Section with Grid Layout */
 .features {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive */
-    gap: 20px;
-    width: 90%;
-    max-width: 1200px;
-    justify-content: center;
-    padding: 20px;
+	display: grid;
+	grid-template-columns: repeat(
+		auto-fit,
+		minmax(300px, 1fr)
+	); /* Responsive */
+	gap: 20px;
+	width: 90%;
+	max-width: 1200px;
+	justify-content: center;
+	padding: 20px;
 }
 
 /* Feature Cards */
 .feature-card {
-    background: linear-gradient(45deg, #232526, #414345);
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    text-align: center;
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 180px; /* Adjust height for uniformity */
-    transition: 1s;
-    
-    
+	background: linear-gradient(45deg, #232526, #414345);
+	padding: 20px;
+	border-radius: 12px;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+	text-align: center;
+	transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 180px; /* Adjust height for uniformity */
+	transition: 1s;
 }
 
 /* Hover effect for a smooth 3D lift */
 .feature-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+	transform: translateY(-5px);
+	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
 }
 
 /* Feature Card Headings */
 .feature-card h2 {
-    font-size: 20px;
-    font-weight: 600;
-    color: #16a34a;
-    text-align: center;
+	font-size: 20px;
+	font-weight: 600;
+	color: #16a34a;
+	text-align: center;
 }
 
 /* Feature Card Text */
 .feature-card p {
-    font-size: 14px;
-    color: white;
-    text-align: center;
-    max-width: 90%;
-    margin-top: 5px;
+	font-size: 14px;
+	color: white;
+	text-align: center;
+	max-width: 90%;
+	margin-top: 5px;
 }
 .feature-card hr {
-    border: none;
-    height: 1px;
-    background-color: white;
-    opacity: 90%;
-    width: 100%;
-    margin-top: 20px;
-   
+	border: none;
+	height: 1px;
+	background-color: white;
+	opacity: 90%;
+	width: 100%;
+	margin-top: 20px;
 }

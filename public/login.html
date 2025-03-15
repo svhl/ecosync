@@ -1,61 +1,61 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Login</title>
-        <link rel="stylesheet" type="text/css" href="login.css" />
-    </head>
-    <body>
-        <div class="container">
-            <div class="form-container sign-in-container">
-                <form id="login-form" action="/login" method="post">
-                    <h2>Login</h2>
-                    <input
-                        type="text"
-                        name="username"
-                        placeholder="Username"
-                        required
-                    />
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        required
-                    />
-                    <button type="submit">Login</button>
-                </form>
-            </div>
-            <div class="form-container sign-up-container">
-                <h2>Hello!</h2>
-                <p>
-                    Register with your personal details to use all of site
-                    features
-                </p>
-                <button onclick="window.location.href='signup.html'">
-                    Signup
-                </button>
-            </div>
-        </div>
-        <script>
-            document.getElementById("login-form").onsubmit = async (e) => {
-                e.preventDefault();
-                const formData = new URLSearchParams(new FormData(e.target));
+	<head>
+		<title>Login</title>
+		<link rel="stylesheet" type="text/css" href="login.css" />
+	</head>
+	<body>
+		<div class="container">
+			<div class="form-container sign-in-container">
+				<form id="login-form" action="/login" method="post">
+					<h2>Login</h2>
+					<input
+						type="text"
+						name="username"
+						placeholder="Username"
+						required
+					/>
+					<input
+						type="password"
+						name="password"
+						placeholder="Password"
+						required
+					/>
+					<p id="error-message" style="color: red"></p>
+					<!-- Add this line -->
+					<button type="submit">Login</button>
+				</form>
+			</div>
+			<div class="form-container sign-up-container">
+				<h2>Hello!</h2>
+				<p>
+					Register with us to grow<br />your business faster with ease
+				</p>
+				<button onclick="window.location.href='signup.html'">
+					Signup
+				</button>
+			</div>
+		</div>
+		<script>
+			document.getElementById("login-form").onsubmit = async (e) => {
+				e.preventDefault();
+				const formData = new URLSearchParams(new FormData(e.target));
 
-                const response = await fetch("/login", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded",
-                    },
-                    body: formData,
-                });
+				const response = await fetch("/login", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/x-www-form-urlencoded",
+					},
+					body: formData,
+				});
 
-                const result = await response.json(); // Expect JSON response
-                if (result.success) {
-                    window.location.href = result.redirect; // Redirect manually
-                } else {
-                    document.getElementById("error-message").textContent =
-                        result.message;
-                }
-            };
-        </script>
-    </body>
+				const result = await response.json(); // Expect JSON response
+				if (result.success) {
+					window.location.href = result.redirect; // Redirect manually
+				} else {
+					alert(result.message); // Show error as a popup
+				}
+			};
+		</script>
+	</body>
 </html>

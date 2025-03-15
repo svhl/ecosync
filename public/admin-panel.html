@@ -2,8 +2,8 @@
 <html>
 	<head>
 		<title>Admin Panel</title>
-        <!-- Link to the external CSS file -->
-        <link rel="stylesheet" href="adminpanel.css">
+		<!-- Link to the external CSS file -->
+		<link rel="stylesheet" href="adminpanel.css" />
 	</head>
 	<body>
 		<h2>Unapproved Users</h2>
@@ -37,7 +37,7 @@
 						users.forEach((user) => {
 							let div = document.createElement("div");
 							div.innerHTML = `${user.username} 
-							<button onclick="approveSell('${user.username}')">Approve Sell</button>`;
+							<button onclick="approveSell('${user.username}')">Approve</button>`;
 							sellList.appendChild(div);
 						});
 					});

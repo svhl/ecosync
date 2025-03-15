@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Buy Raw Materials</title>
+		<link rel="stylesheet" type="text/css" , href="buy.css" />
+		<script>
+			document.addEventListener("DOMContentLoaded", () => {
+				fetch("/byprods")
+					.then((response) => response.json())
+					.then((data) => {
+						const listingsContainer =
+							document.getElementById("listings");
+						data.forEach((listing) => {
+							const listingElement =
+								document.createElement("div");
+							listingElement.innerHTML = `
+                            <h2>${listing.product_name}</h2>
+                            <p>Company: ${listing.username}</p>
+                            <p>Contact: ${listing.contact}</p>
+                            <p>Quantity: ${listing.quantity}</p>
+                            <p>Type: ${listing.type}</p>
+							<p>Distance: ${listing.coord_difference} km</p>
+                            <hr>
+                        `;
+							listingsContainer.appendChild(listingElement);
+						});
+					})
+					.catch((error) =>
+						console.error("Error fetching listings:", error)
+					);
+			});
+		</script>
+	</head>
+	<body>
+		<nav>
+			<a href="#" onclick="checkSellPermission()">Sell</a>
+			<a href="buy-raw-materials.html">Buy raw materials</a>
+
+			<a href="buy-byproducts.html">Buy by-products</a>
+
+			<a href="buy-equipment.html">Buy equipment</a>
+
+			<button class="logout">Logout</button>
+		</nav>
+		<h1>Available Raw Materials</h1>
+		<div id="listings"></div>
+	</body>
+</html>

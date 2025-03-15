@@ -247,3 +247,135 @@ app.get("/listings", (req, res) => {
 		}
 	);
 });
+
+app.get("/byprods", (req, res) => {
+	if (!req.session.user) return res.status(401).send("Unauthorized");
+
+	// Get logged-in user's coordinates
+	db.query(
+		"SELECT map FROM users WHERE username = ?",
+		[req.session.user],
+		(err, userResult) => {
+			if (err || userResult.length === 0)
+				return res.status(500).send("Error fetching user location.");
+
+			const userCoords = userResult[0].map.split(",").map(Number);
+
+			// Fetch seller listings with coordinates
+			const query = `
+				SELECT u.username, u.contact, u.map, s.product_name, s.quantity, s.type
+				FROM seller_listing s
+				JOIN users u ON s.username = u.username
+				WHERE u.approved = "yes" AND u.sell = "yes"
+			`;
+
+			db.query(query, (err, results) => {
+				if (err)
+					return res.status(500).send("Error fetching listings.");
+
+				const toRadians = (degrees) => (degrees * Math.PI) / 180;
+
+				const haversineDistance = (lat1, lon1, lat2, lon2) => {
+					const R = 6371; // Earth's radius in km
+					const dLat = toRadians(lat2 - lat1);
+					const dLon = toRadians(lon2 - lon1);
+					const a =
+						Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+						Math.cos(toRadians(lat1)) *
+							Math.cos(toRadians(lat2)) *
+							Math.sin(dLon / 2) *
+							Math.sin(dLon / 2);
+					const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+					return R * c; // Distance in km
+				};
+
+				const listings = results.map((listing) => {
+					const sellerCoords = listing.map.split(",").map(Number);
+					const distanceKm = haversineDistance(
+						userCoords[0],
+						userCoords[1],
+						sellerCoords[0],
+						sellerCoords[1]
+					);
+
+					return {
+						username: listing.username,
+						contact: listing.contact,
+						product_name: listing.product_name,
+						quantity: listing.quantity,
+						type: listing.type,
+						coord_difference: distanceKm.toFixed(2), // Distance in km
+					};
+				});
+
+				res.json(listings);
+			});
+		}
+	);
+});
+
+app.get("/equip", (req, res) => {
+	if (!req.session.user) return res.status(401).send("Unauthorized");
+
+	// Get logged-in user's coordinates
+	db.query(
+		"SELECT map FROM users WHERE username = ?",
+		[req.session.user],
+		(err, userResult) => {
+			if (err || userResult.length === 0)
+				return res.status(500).send("Error fetching user location.");
+
+			const userCoords = userResult[0].map.split(",").map(Number);
+
+			// Fetch seller listings with coordinates
+			const query = `
+				SELECT u.username, u.contact, u.map, s.product_name, s.quantity, s.type
+				FROM seller_listing s
+				JOIN users u ON s.username = u.username
+				WHERE u.approved = "yes" AND u.sell = "yes"
+			`;
+
+			db.query(query, (err, results) => {
+				if (err)
+					return res.status(500).send("Error fetching listings.");
+
+				const toRadians = (degrees) => (degrees * Math.PI) / 180;
+
+				const haversineDistance = (lat1, lon1, lat2, lon2) => {
+					const R = 6371; // Earth's radius in km
+					const dLat = toRadians(lat2 - lat1);
+					const dLon = toRadians(lon2 - lon1);
+					const a =
+						Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+						Math.cos(toRadians(lat1)) *
+							Math.cos(toRadians(lat2)) *
+							Math.sin(dLon / 2) *
+							Math.sin(dLon / 2);
+					const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+					return R * c; // Distance in km
+				};
+
+				const listings = results.map((listing) => {
+					const sellerCoords = listing.map.split(",").map(Number);
+					const distanceKm = haversineDistance(
+						userCoords[0],
+						userCoords[1],
+						sellerCoords[0],
+						sellerCoords[1]
+					);
+
+					return {
+						username: listing.username,
+						contact: listing.contact,
+						product_name: listing.product_name,
+						quantity: listing.quantity,
+						type: listing.type,
+						coord_difference: distanceKm.toFixed(2), // Distance in km
+					};
+				});
+
+				res.json(listings);
+			});
+		}
+	);
+});
