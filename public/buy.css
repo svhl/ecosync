@@ -86,7 +86,7 @@ h1:hover::after {
 #listings h2 {
 	font-size: 20px;
 	font-weight: 600;
-	color: wheat;
+	color: #16a34a;
 	margin-bottom: 10px;
 }
 
@@ -116,6 +116,7 @@ nav {
 	transition: top 0.5s ease-in-out;
 	justify-content: space-around;
 	align-items: center;
+	z-index: 10;
 }
 
 /* Show Navbar when Hovering at the Top */
@@ -167,4 +168,18 @@ nav a:hover {
 	background: #cc0000;
 	box-shadow: 0 4px 10px rgba(255, 77, 77, 0.5); /* Soft red shadow */
 	transform: scale(1.05);
+}
+
+h1 {
+	margin-top: 90px;
+	margin-bottom: 30px;
+	font-size: x-large;
+	font-style: italic;
+	margin-bottom: 50px;
+}
+
+.half {
+	color: #16a34a;
+	font-size: 75px;
+	font-style: normal;
 }

@@ -3,9 +3,22 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Buy Raw Materials</title>
+		<title>Buy raw materials</title>
 		<link rel="stylesheet" type="text/css" , href="buy.css" />
 		<script>
+			function checkSellPermission() {
+				fetch("/get-user-status")
+					.then((response) => response.json())
+					.then((user) => {
+						if (user.sell === "no") {
+							window.location.href = "sell-approval.html";
+						} else if (user.sell === "pending") {
+							window.location.href = "sell-pending.html";
+						} else {
+							window.location.href = "sell-page.html";
+						}
+					});
+			}
 			document.addEventListener("DOMContentLoaded", () => {
 				fetch("/listings")
 					.then((response) => response.json())
@@ -13,18 +26,18 @@
 						const listingsContainer =
 							document.getElementById("listings");
 						data.forEach((listing) => {
-							const listingElement =
-								document.createElement("div");
-							listingElement.innerHTML = `
+							if (listing.type == "rawMaterial") {
+								const listingElement =
+									document.createElement("div");
+								listingElement.innerHTML = `
                             <h2>${listing.product_name}</h2>
                             <p>Company: ${listing.username}</p>
                             <p>Contact: ${listing.contact}</p>
                             <p>Quantity: ${listing.quantity}</p>
-                            <p>Type: ${listing.type}</p>
-							<p>Distance: ${listing.coord_difference} km</p>
                             <hr>
                         `;
-							listingsContainer.appendChild(listingElement);
+								listingsContainer.appendChild(listingElement);
+							}
 						});
 					})
 					.catch((error) =>
@@ -40,11 +53,14 @@
 
 			<a href="buy-byproducts.html">Buy by-products</a>
 
-			<a href="buy-equipment.html">Buy equipment</a>
+			<a href="buy-equip.html">Buy equipment</a>
+			<a href="industries.html">Other industries</a>
 
-			<button class="logout">Logout</button>
+			<button class="logout" onclick="window.location.href='login.html'">
+				Logout
+			</button>
 		</nav>
-		<h1>Available Raw Materials</h1>
+		<h1><span class="half">Available</span>raw materials</h1>
 		<div id="listings"></div>
 	</body>
 </html>

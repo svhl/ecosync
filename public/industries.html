@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Industry Map</title>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css"
+		/>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+		<style>
+			#map {
+				height: 500px;
+				width: 100%;
+			}
+			.legend {
+				position: absolute;
+				bottom: 10px;
+				left: 10px;
+				background: white;
+				padding: 10px;
+				border-radius: 5px;
+				box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+			}
+			.legend div {
+				display: flex;
+				align-items: center;
+				margin-bottom: 5px;
+			}
+			.legend span {
+				display: inline-block;
+				width: 15px;
+				height: 15px;
+				margin-right: 5px;
+				border-radius: 50%;
+			}
+			.label {
+				background: white;
+				padding: 3px 6px;
+				border-radius: 3px;
+				font-size: 12px;
+				font-weight: bold;
+			}
+		</style>
+	</head>
+	<body>
+		<h2>Industry Locations</h2>
+		<div id="map"></div>
+
+		<div class="legend">
+			<div><span style="background: red"></span>You</div>
+			<div><span style="background: blue"></span>Other industries</div>
+		</div>
+
+		<script>
+			document.addEventListener("DOMContentLoaded", async function () {
+				var map = L.map("map").setView([20.5937, 78.9629], 5);
+
+				L.tileLayer(
+					"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+					{
+						attribution: "&copy; OpenStreetMap contributors",
+					}
+				).addTo(map);
+
+				try {
+					const response = await fetch("/industries"); // Fetch industries from server
+					const data = await response.json();
+
+					data.industries.forEach((industry) => {
+						let markerColor = industry.isUser ? "red" : "blue"; // Red for logged-in user, blue for others
+
+						let marker = L.circleMarker(
+							[industry.lat, industry.lng],
+							{
+								color: markerColor,
+								radius: 8,
+								fillOpacity: 0.8,
+							}
+						).addTo(map);
+
+						marker.bindPopup(
+							`<b>${industry.name}</b><br>${industry.type}`
+						);
+					});
+				} catch (error) {
+					console.error("Error loading industries:", error);
+				}
+			});
+		</script>
+	</body>
+</html>

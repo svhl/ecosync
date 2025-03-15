@@ -39,6 +39,7 @@ nav {
 	transition: top 0.5s ease-in-out;
 	justify-content: space-around;
 	align-items: center;
+	z-index: 10;
 }
 
 /* Show Navbar when Hovering at the Top */
@@ -96,25 +97,28 @@ p {
 	font-style: normal;
 }
 .dashboard-intro {
-	margin-top: 50px;
+	margin-top: 25px;
 	margin-bottom: 20px;
 	width: 80%; /* Makes the box bigger */
 	max-width: 900px; /* Prevents it from getting too wide */
 	margin: 20px auto; /* Centers the box */
 	padding: 20px; /* Adds spacing inside the box */
 	text-align: center; /* Centers the text */
-	background: white; /* Optional: Add background color */
+	/* Optional: Add background color */
 	border-radius: 10px; /* Optional: Rounded corners */
 	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Optional: Soft shadow */
 	font-size: 18px; /* Increase text size */
 	line-height: 1.8; /* More readable spacing */
 	transition: 1s;
-	color: white;
-	background: linear-gradient(45deg, #232526, #414345);
+	color: black;
+	font-style: italic;
+	font-family: "Times New Roman", Times, serif;
 }
 
 .dashboard-intro:hover {
 	transform: scale(1.05);
+	background-color: #16a34a;
+	color: white;
 }
 .logout {
 	background: #ff4d4d;
@@ -124,7 +128,6 @@ p {
 	color: white;
 	font-size: 14px;
 	cursor: pointer;
-	transition: background 0.3s ease-in-out;
 	transition: 1s;
 }
 
