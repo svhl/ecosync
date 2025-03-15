@@ -1,0 +1,179 @@
+/* General Body Styles */
+body {
+    background-color: #f0f0f0;
+    background-image: radial-gradient(circle, rgba(0, 0, 0, 0.2) 10%, transparent 20%);
+    background-size: 10px 10px; /* Adjust size of dots */
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+/* Form Styling */
+form {
+    width: 350px;  /* Fixed width */
+    height: 400px; /* Fixed height to make it square */
+    padding: 40px;
+    background-color: black;
+    border-radius: 8px;
+    border: 2px solid #ddd; /* Adding border to create a box */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adding shadow for depth */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: auto;  /* Centering the form */
+    border-radius: 20px;
+    margin-top: 50px; /* Adjust the top margin if needed */
+    margin-bottom: 75px;
+    transition: 0.5s;
+}
+form:hover{
+    transform:scale(1.05) ;
+}
+
+form {}
+
+/* Main Box Container */
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+label {
+    font-size: 18px;
+    color: white;
+}
+
+/* General Input Styling */
+input[type="text"],
+input[type="number"],
+select,
+input[type="submit"] {
+    font-size: 14px;  /* Ensures the font size inside the select box matches input fields */
+    padding: 10px;
+    border: 1px #ddd;
+    border-radius: 4px;  /* Ensures text inside the input fields is the same size */
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+/* Placeholder Styling */
+input[type="text"]::placeholder,
+input[type="number"]::placeholder {
+    font-size: 12px;  /* Adjust the size of the placeholder */
+    color: #aaa;  /* Change the color of the placeholder text */
+}
+
+/* Submit Button */
+input[type="submit"] {
+    font-size: 16px;  /* Ensures the submit button text size is consistent */
+    background-color: white;
+    font-weight: 18px;
+    margin-bottom: 20px;
+    transition: 0.5s;
+    color: black;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+    color:white;
+    transform:scale(1.05);
+}
+
+/* Select Input */
+select {
+    font-size: 14px;  /* Ensures the font size inside the select box matches input fields */
+    padding: 10px;
+    border: 1px #ddd;
+    border-radius: 4px;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 600px) {
+    form {
+        width: 90%;
+    }
+}
+
+/* Navbar - Hidden by Default */
+nav {
+    position: fixed;
+    top: -60px; /* Hidden initially */
+    left: 0;
+    width: 100%;
+    background-color: black;
+    backdrop-filter: blur(10px);
+    padding: 20px 0;
+    text-align: center;
+    transition: top 0.5s ease-in-out;
+    justify-content: space-around;
+    align-items: center;
+}
+
+/* Show Navbar when Hovering at the Top */
+body:hover nav {
+    top: 0;
+}
+
+/* Hide Navbar when Moving Away */
+nav:hover {
+    top: 0;
+}
+
+body:not(:hover) nav {
+    top: -80px;
+}
+
+/* Navbar Links */
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    align-items: center;
+    margin: 0 15px;
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: 1s;
+    justify-content: center;
+}
+
+/* Hover Effect for Links */
+nav a:hover {
+    color: #16a34a;
+    transform: scale(1.1);
+}
+
+.logout {
+    background: #ff4d4d;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 1s;
+}
+
+.logout:hover {
+    background: #cc0000;
+    box-shadow: 0 4px 10px rgba(255, 77, 77, 0.5); /* Soft red shadow */
+    transform: scale(1.05);
+}
+
+h1 {
+    margin-top: 120px;
+    margin-bottom: 20px;
+    font-size: x-large;
+    font-style: italic;
+}
+
+.half {
+    color: #16a34a;
+    font-size: 75px;
+    font-style: normal;
+}
