@@ -61,6 +61,7 @@ input {
 	color: #fff;
 	outline: none;
 	transition: 0.3s;
+	text-align: center;
 }
 
 input::placeholder {
