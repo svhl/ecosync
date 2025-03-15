@@ -1,0 +1,182 @@
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Background with Small Dots */
+body {
+    background-color: #f0f0f0;
+    background-image: radial-gradient(circle, rgba(0, 0, 0, 0.2) 10%, transparent 20%);
+    background-size: 10px 10px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+/* Page Title */
+h1 {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #222;
+    position: relative;
+    margin-top: 120px;
+    margin-bottom: 20px;
+}
+
+/* Underline Effect on Hover */
+h1::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 0%;
+    height: 3px;
+    background-color: black;
+    transition: width 0.4s ease-in-out;
+}
+
+h1:hover::after {
+    width: 100%;
+}
+
+/* Listings Container */
+#listings {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive Grid */
+    gap: 20px;
+    width: 90%;
+    max-width: 1200px;
+}
+
+/* Individual Listing Card */
+#listings div {
+    background: linear-gradient(45deg , #232526,#414345);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: 1s;
+}
+
+/* Hover Effect on Cards */
+#listings div:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Listing Titles */
+#listings h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color:#16a34a;
+    margin-bottom: 10px;
+}
+
+/* Listing Details */
+#listings p {
+    font-size: 14px;
+    color: white;
+    margin-bottom: 5px;
+}
+
+/* Separator Line */
+#listings hr {
+    border: none;
+    height: 1px;
+    background-color: #ddd;
+    margin-top: 10px;
+}
+nav {
+    position: fixed;
+    top: -60px; /* Hidden initially */
+    left: 0;
+    width: 100%;
+    background-color: black;
+    backdrop-filter: blur(10px);
+    padding: 20px 0;
+    text-align: center;
+    transition: top 0.5s ease-in-out;
+    justify-content: space-around;
+    align-items: center;
+}
+
+/* Show Navbar when Hovering at the Top */
+body:hover nav {
+    top: 0;
+}
+
+/* Hide Navbar when Moving Away */
+nav:hover {
+    top: 0;
+}
+
+body:not(:hover) nav {
+    top: -80px;
+}
+
+/* Navbar Links */
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    align-items: center;
+    margin: 0 15px;
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: 1s;
+    justify-content: center;
+
+}
+
+/* Hover Effect for Links */
+nav a:hover {
+    
+    color: #16a34a;
+    transform: scale(1.1);
+}
+
+.logout {
+    background: #ff4d4d;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+    transition: 1s;
+}
+
+.logout:hover {
+    background: #cc0000;
+    box-shadow: 0 4px 10px rgba(255, 77, 77, 0.5); /* Soft red shadow */
+    transform: scale(1.05);
+}
+
+h1{
+    margin-top: 90px;
+    margin-bottom: 30px;
+    font-size: x-large;
+    font-style: italic;
+    margin-bottom: 50px;
+}
+
+
+.half{
+
+    color:#16a34a;
+    font-size: 75px;
+    font-style: normal;
+}
+
