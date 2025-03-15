@@ -1,95 +1,90 @@
 /* Import Google Font */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Poppins", sans-serif;
 }
 
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f0f0f0;
-    background-image: radial-gradient(circle, rgba(0, 0, 0, 0.2) 10%, transparent 20%);
-    background-size: 10px 10px; /* Adjust size of dots */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	background-color: #f0f0f0;
+	background-image: radial-gradient(
+		circle,
+		rgba(0, 0, 0, 0.2) 10%,
+		transparent 20%
+	);
+	background-size: 10px 10px; /* Adjust size of dots */
 }
 
 form {
-    background-color: black;
-    padding: 30px;
-    border-radius: 12px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    text-align: center;
-    max-width: 350px;
-    width: 500PX;
-    height :400px;
-    align-items: center;
-    transition:1s;
-    justify-content: center;
-    display:flex;
-    flex-direction: column;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6); /* Black shadow */
-
+	background-color: black;
+	padding: 30px;
+	border-radius: 12px;
+	backdrop-filter: blur(10px);
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+	text-align: center;
+	max-width: 350px;
+	width: 500px;
+	height: 400px;
+	align-items: center;
+	transition: 1s;
+	justify-content: center;
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Black shadow */
 }
-form:hover{
-
-    transform: scale(1.05);
-    font-family: 'Courier New', Courier, monospace;
-  
-
+form:hover {
+	transform: scale(1.05);
+	font-family: "Courier New", Courier, monospace;
 }
 
 h2 {
-    color: #fff;
-    margin-bottom: 20px;
-    font-weight: 600;
+	color: #fff;
+	margin-bottom: 20px;
+	font-weight: 600;
 }
 
 input {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border: none;
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.2);
-    color: #fff;
-    outline: none;
-    transition: 0.3s;
+	width: 100%;
+	padding: 10px;
+	margin: 10px 0;
+	border: none;
+	border-radius: 8px;
+	background: rgba(255, 255, 255, 0.2);
+	color: #fff;
+	outline: none;
+	transition: 0.3s;
 }
 
 input::placeholder {
-    color: rgba(255, 255, 255, 0.7);
+	color: rgba(255, 255, 255, 0.7);
 }
 
 input:focus {
-    background: rgba(255, 255, 255, 0.3);
+	background: rgba(255, 255, 255, 0.3);
 }
 
-button{
-margin-top: 30px;
-    width:295px;
-    height:50px;
-    border-radius: 10px;
-    transition: 1s;
-    background:linear-gradient(45deg,#1A2980,#26D0CE);
-    color:white;
-    transition:1s;
-}
-    
-
-button:hover{
-   
-  transform: scale(1.05);
-  
-  color: white;
-  
+button {
+	margin-top: 10px;
+	width: 295px;
+	height: 40px;
+	border-radius: 8px;
+	transition: 1s;
+	background: white;
+	color: black;
+	transition: 1s;
+	border: none;
 }
 
-
-
+button:hover {
+	transform: scale(1.05);
+	background: #16a34a;
+	color: white;
+}
