@@ -36,7 +36,7 @@ app.post("/signup", (req, res) => {
 		[username, password, industry, map, contact, type],
 		(err) => {
 			if (err) return res.send("Error signing up.");
-			res.send("Signup successful. Waiting for approval.");
+			res.redirect("/login.html");
 		}
 	);
 });
