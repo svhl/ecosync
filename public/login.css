@@ -1,122 +1,123 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Montserrat', sans-serif;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Poppins", sans-serif;
 
-    text-align: center;
+	text-align: center;
 }
 
 body {
-    background-color: #f0f0f0;
-    background-image: radial-gradient(circle, rgba(0, 0, 0, 0.2) 10%, transparent 20%);
-    background-size: 10px 10px; 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+	background-color: #f0f0f0;
+	background-image: radial-gradient(
+		circle,
+		rgba(0, 0, 0, 0.2) 10%,
+		transparent 20%
+	);
+	background-size: 10px 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
 }
 
 .container {
-    display: flex;
-    width: 800px;
-    height: 450px;
-    background-color: white;
-    border-radius: 12px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    overflow: hidden;
-    transition: 0.5s;
+	display: flex;
+	width: 800px;
+	height: 450px;
+	background-color: white;
+	border-radius: 12px;
+	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+	overflow: hidden;
+	transition: 0.5s;
 }
-.container:hover{
-    transform:scale(1.05) ;
+.container:hover {
+	transform: scale(1.05);
 }
 
 .form-container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 40px;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 40px;
 }
 
 .sign-in-container {
-    width: 50%;
-    text-align: center;
+	width: 50%;
+	text-align: center;
 }
 
 .sign-up-container {
-    width: 50%;
-    background-color: black;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 40px;
-    border-radius: 0 12px 12px 0;
+	width: 50%;
+	background-color: black;
+	color: white;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 40px;
+	border-radius: 0 12px 12px 0;
 }
 
 h2 {
-    font-size: 24px;
-    font-weight: 600;
-    margin-bottom: 15px;
-   
+	font-size: 24px;
+	font-weight: 600;
+	margin-bottom: 15px;
 }
 
 input {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 14px;
+	width: 100%;
+	padding: 12px;
+	margin: 10px 0;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	font-size: 14px;
 }
 
 button {
-    width: 100%;
-    padding: 15px;
-    background-color: black;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: 1s;
+	width: 100%;
+	padding: 15px;
+	background-color: black;
+	color: white;
+	border: none;
+	border-radius: 8px;
+	font-size: 14px;
+	font-weight: 600;
+	text-transform: uppercase;
+	cursor: pointer;
+	transition: 1s;
 }
 
 button:hover {
-    background-color: #16a34a;
-    transform:scale(1.05);
+	background-color: #16a34a;
+	transform: scale(1.05);
 }
 
 .sign-up-container button {
-    background-color:white;
-    
-    color:black;
-    margin-top: 80px;
-    transition:1s;
-    
+	background-color: white;
+
+	color: black;
+	margin-top: 80px;
+	transition: 1s;
 }
 
 .sign-up-container button:hover {
-    
-    transform: scale(1.05);
-    background-color: #16a34a;
-    color:white;
+	transform: scale(1.05);
+	background-color: #16a34a;
+	color: white;
 }
 
 a {
-    text-decoration: none;
-    color: #2da0a8;
-    font-size: 14px;
-    margin-top: 10px;
+	text-decoration: none;
+	color: #2da0a8;
+	font-size: 14px;
+	margin-top: 10px;
 }
 
 a:hover {
-    text-decoration: underline;
+	text-decoration: underline;
 }

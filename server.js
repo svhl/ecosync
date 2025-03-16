@@ -197,7 +197,7 @@ app.get("/listings", (req, res) => {
 
 			// Fetch seller listings with coordinates
 			const query = `
-				SELECT u.username, u.contact, u.map, s.product_name, s.quantity, s.type
+				SELECT u.username, u.industry, u.contact, u.map, s.product_name, s.quantity, s.type
 				FROM seller_listing s
 				JOIN users u ON s.username = u.username
 				WHERE u.approved = "yes" AND u.sell = "yes"
@@ -267,7 +267,7 @@ app.get("/byprods", (req, res) => {
 
 			// Fetch seller listings with coordinates
 			const query = `
-				SELECT u.username, u.contact, u.map, s.product_name, s.quantity, s.type
+				SELECT u.username, u.industry, u.contact, u.map, s.product_name, s.quantity, s.type
 				FROM seller_listing s
 				JOIN users u ON s.username = u.username
 				WHERE u.approved = "yes" AND u.sell = "yes"
@@ -337,7 +337,7 @@ app.get("/equip", (req, res) => {
 
 			// Fetch seller listings with coordinates
 			const query = `
-				SELECT u.username, u.contact, u.map, s.product_name, s.quantity, s.type
+				SELECT u.username, u.industry, u.contact, u.map, s.product_name, s.quantity, s.type
 				FROM seller_listing s
 				JOIN users u ON s.username = u.username
 				WHERE u.approved = "yes" AND u.sell = "yes"
@@ -390,29 +390,4 @@ app.get("/equip", (req, res) => {
 			});
 		}
 	);
-});
-
-app.get("/industries", (req, res) => {
-	const username = req.session.user; // Get logged-in user
-	const query =
-		"SELECT username, industry AS name, type, map FROM users WHERE approved = 'yes'";
-
-	db.query(query, (err, results) => {
-		if (err) {
-			return res.status(500).json({ error: "Database error" });
-		}
-
-		const industries = results.map((row) => {
-			const [lat, lng] = row.map.split(",");
-			return {
-				name: row.name,
-				type: row.type,
-				lat: parseFloat(lat),
-				lng: parseFloat(lng),
-				isUser: row.username === username, // Check if it's the logged-in user
-			};
-		});
-
-		res.json({ industries });
-	});
 });

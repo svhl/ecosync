@@ -112,12 +112,12 @@ p {
 	transition: 1s;
 	color: black;
 	font-style: italic;
-	font-family: "Times New Roman", Times, serif;
+	font-family: "Poppins", sans-serif;
 }
 
 .dashboard-intro:hover {
 	transform: scale(1.05);
-	background-color: #16a34a;
+	background: linear-gradient(45deg, #232526, #414345);
 	color: white;
 }
 .logout {

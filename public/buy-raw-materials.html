@@ -2,8 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Buy raw materials</title>
+		<title>EcoSync | Buy Raw Materials</title>
 		<link rel="stylesheet" type="text/css" , href="buy.css" />
 		<script>
 			function checkSellPermission() {
@@ -31,7 +30,7 @@
 									document.createElement("div");
 								listingElement.innerHTML = `
                             <h2>${listing.product_name}</h2>
-                            <p>Company: ${listing.username}</p>
+                            <p>Company: ${listing.industry}</p>
                             <p>Contact: ${listing.contact}</p>
                             <p>Quantity: ${listing.quantity}</p>
                             <hr>
@@ -54,7 +53,6 @@
 			<a href="buy-byproducts.html">Buy by-products</a>
 
 			<a href="buy-equip.html">Buy equipment</a>
-			<a href="industries.html">Other industries</a>
 
 			<button class="logout" onclick="window.location.href='login.html'">
 				Logout

@@ -1,0 +1,195 @@
+/* General Body Styles */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Poppins", sans-serif;
+}
+
+body {
+	background-color: #f0f0f0;
+	background-image: radial-gradient(
+		circle,
+		rgba(0, 0, 0, 0.2) 10%,
+		transparent 20%
+	);
+	background-size: 10px 10px; /* Adjust size of dots */
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	overflow: hidden;
+	overflow-y: auto;
+}
+
+/* Heading Styling */
+h1 {
+	margin-top: 110px;
+	margin-bottom: 20px;
+	font-weight: 600;
+	font-size: x-large;
+	font-style: italic;
+	position: relative;
+	display: inline-block;
+	cursor: pointer;
+}
+
+/* Underline Effect on Hover */
+h1::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	bottom: -5px; /* Adjust underline position */
+	width: 0%;
+	height: 3px;
+	background-color: black;
+	transition: width 0.5s ease-in-out;
+}
+
+h1:hover::after {
+	width: 100%;
+}
+
+.half {
+	color: #16a34a;
+	font-size: 75px;
+	font-style: normal;
+}
+
+/* Form Styling */
+form {
+	width: 350px;
+	height: max-content;
+	padding: 40px;
+	background-color: black;
+	border-radius: 8px;
+	border: 2px solid #ddd;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	margin: auto;
+	border-radius: 20px;
+	margin-top: 20px;
+	margin-bottom: 75px;
+	transition: 0.5s;
+}
+
+form:hover {
+	transform: scale(1.05);
+}
+
+/* Labels */
+label {
+	font-size: 18px;
+	color: white;
+	margin-top: 10px;
+}
+
+/* Input Styling */
+input[type="text"],
+input[type="number"],
+select,
+input[type="submit"] {
+	font-size: 14px;
+	padding: 10px;
+	border: 1px #ddd;
+	border-radius: 4px;
+	background: rgba(255, 255, 255, 0.2);
+	color: white;
+	margin-top: 10px;
+}
+
+/* Placeholder Styling */
+input::placeholder {
+	font-size: 12px;
+	color: #aaa;
+}
+
+/* Submit Button */
+input[type="submit"] {
+	font-size: 14px;
+	background-color: white;
+	font-weight: 600;
+	margin-bottom: 20px;
+	transition: 0.5s;
+	color: black;
+	margin-top: 15px;
+	border-radius: 8px;
+}
+
+input[type="submit"]:hover {
+	background-color: #45a049;
+	color: white;
+	transform: scale(1.05);
+}
+
+/* Navbar */
+nav {
+	position: fixed;
+	top: -60px;
+	left: 0;
+	width: 100%;
+	background-color: black;
+	backdrop-filter: blur(10px);
+	padding: 20px 0;
+	text-align: center;
+	transition: top 0.5s ease-in-out;
+	justify-content: space-around;
+	align-items: center;
+}
+
+/* Show Navbar when Hovering at the Top */
+body:hover nav {
+	top: 0;
+}
+
+/* Hide Navbar when Moving Away */
+nav:hover {
+	top: 0;
+}
+
+body:not(:hover) nav {
+	top: -80px;
+}
+
+/* Navbar Links */
+nav a {
+	color: white;
+	text-decoration: none;
+	font-size: 16px;
+	align-items: center;
+	margin: 0 15px;
+	padding: 10px 15px;
+	border-radius: 8px;
+	transition: 1s;
+	justify-content: center;
+}
+
+/* Hover Effect for Links */
+nav a:hover {
+	color: #16a34a;
+	transform: scale(1.1);
+}
+
+/* Logout Button */
+.logout {
+	background: #ff4d4d;
+	border: none;
+	padding: 8px 15px;
+	border-radius: 5px;
+	color: white;
+	font-size: 14px;
+	cursor: pointer;
+	transition: 1s;
+}
+
+.logout:hover {
+	background: #cc0000;
+	box-shadow: 0 4px 10px rgba(255, 77, 77, 0.5);
+	transform: scale(1.05);
+}
