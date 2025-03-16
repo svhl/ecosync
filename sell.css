@@ -1,4 +1,13 @@
 /* General Body Styles */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
 body {
     background-color: #f0f0f0;
     background-image: radial-gradient(circle, rgba(0, 0, 0, 0.2) 10%, transparent 20%);
@@ -12,66 +21,91 @@ body {
     overflow-y: auto;
 }
 
+/* Heading Styling */
+h1 {
+    margin-top: 120px;
+    margin-bottom: 20px;
+    font-size: x-large;
+    font-style: italic;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+/* Underline Effect on Hover */
+h1::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -5px; /* Adjust underline position */
+    width: 0%;
+    height: 3px;
+    background-color: black;
+    transition: width 0.5s ease-in-out;
+}
+
+h1:hover::after {
+    width: 100%;
+}
+
+.half {
+    color: #16a34a;
+    font-size: 75px;
+    font-style: normal;
+}
+
 /* Form Styling */
 form {
-    width: 350px;  /* Fixed width */
-    height: 400px; /* Fixed height to make it square */
+    width: 350px;
+    height: max-content;
     padding: 40px;
     background-color: black;
     border-radius: 8px;
-    border: 2px solid #ddd; /* Adding border to create a box */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adding shadow for depth */
+    border: 2px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    margin: auto;  /* Centering the form */
+    margin: auto;
     border-radius: 20px;
-    margin-top: 50px; /* Adjust the top margin if needed */
+    margin-top: 20px;
     margin-bottom: 75px;
     transition: 0.5s;
 }
-form:hover{
-    transform:scale(1.05) ;
+
+form:hover {
+    transform: scale(1.05);
 }
 
-form {}
-
-/* Main Box Container */
-
-h1 {
-    text-align: center;
-    color: #333;
-}
-
+/* Labels */
 label {
     font-size: 18px;
     color: white;
 }
 
-/* General Input Styling */
+/* Input Styling */
 input[type="text"],
 input[type="number"],
 select,
 input[type="submit"] {
-    font-size: 14px;  /* Ensures the font size inside the select box matches input fields */
+    font-size: 14px;
     padding: 10px;
     border: 1px #ddd;
-    border-radius: 4px;  /* Ensures text inside the input fields is the same size */
+    border-radius: 4px;
     background: rgba(255, 255, 255, 0.2);
     color: white;
 }
 
 /* Placeholder Styling */
-input[type="text"]::placeholder,
-input[type="number"]::placeholder {
-    font-size: 12px;  /* Adjust the size of the placeholder */
-    color: #aaa;  /* Change the color of the placeholder text */
+input::placeholder {
+    font-size: 12px;
+    color: #aaa;
 }
 
 /* Submit Button */
 input[type="submit"] {
-    font-size: 16px;  /* Ensures the submit button text size is consistent */
+    font-size: 16px;
     background-color: white;
     font-weight: 18px;
     margin-bottom: 20px;
@@ -81,29 +115,21 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
     background-color: #45a049;
-    color:white;
-    transform:scale(1.05);
+    color: white;
+    transform: scale(1.05);
 }
 
-/* Select Input */
-select {
-    font-size: 14px;  /* Ensures the font size inside the select box matches input fields */
-    padding: 10px;
-    border: 1px #ddd;
-    border-radius: 4px;
-}
-
-/* Responsive design for smaller screens */
+/* Responsive Design */
 @media (max-width: 600px) {
     form {
         width: 90%;
     }
 }
 
-/* Navbar - Hidden by Default */
+/* Navbar */
 nav {
     position: fixed;
-    top: -60px; /* Hidden initially */
+    top: -60px;
     left: 0;
     width: 100%;
     background-color: black;
@@ -148,6 +174,7 @@ nav a:hover {
     transform: scale(1.1);
 }
 
+/* Logout Button */
 .logout {
     background: #ff4d4d;
     border: none;
@@ -161,19 +188,6 @@ nav a:hover {
 
 .logout:hover {
     background: #cc0000;
-    box-shadow: 0 4px 10px rgba(255, 77, 77, 0.5); /* Soft red shadow */
+    box-shadow: 0 4px 10px rgba(255, 77, 77, 0.5);
     transform: scale(1.05);
-}
-
-h1 {
-    margin-top: 120px;
-    margin-bottom: 20px;
-    font-size: x-large;
-    font-style: italic;
-}
-
-.half {
-    color: #16a34a;
-    font-size: 75px;
-    font-style: normal;
 }
