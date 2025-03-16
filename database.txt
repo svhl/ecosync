@@ -9,17 +9,14 @@ CREATE TABLE users (
 	map TEXT NOT NULL,
 	contact VARCHAR(100) NOT NULL,
 	type VARCHAR(100) NOT NULL,
-	approved ENUM('yes', 'no') DEFAULT 'no'
+	approved ENUM('yes', 'no') DEFAULT 'no',
+	sell ENUM('yes', 'no', 'pending') DEFAULT 'no'
 );
 
 CREATE TABLE admins (
 	username VARCHAR(50) PRIMARY KEY,
 	password VARCHAR(50) NOT NULL
 );
-
-INSERT INTO admins (username, password) VALUES ('admin', 'admin123');
-
-ALTER TABLE users ADD COLUMN sell ENUM('yes', 'no', 'pending') DEFAULT 'no';
 
 CREATE TABLE seller_listing (
     list_id INT AUTO_INCREMENT,
@@ -29,3 +26,12 @@ CREATE TABLE seller_listing (
     type VARCHAR(50) NOT NULL,
     PRIMARY KEY (list_id)
 );
+
+INSERT INTO admins (username, password) VALUES ('admin', 'admin123');
+
+INSERT INTO users VALUES('avra', 'avra', 'Avera Biscuit Company', '10.001310690818134,76.32421888411045', 'averabiscuits@gmail.com', 'Biscuit Industry', 'yes', 'no');
+INSERT INTO users VALUES('mrgl', 'mrgl', 'Merrigirl Ice Cream Inc.', '9.556334236146744,76.5461428463459', 'merrigirlinc@gmail.com', 'Ice Cream Industry', 'yes', 'yes');
+INSERT INTO users VALUES('sgrc', 'sgrc', 'The Sugar Company', '8.921975346613454,76.6175539791584', 'thesugarcompany@gmail.com', 'Sugar Industry', 'yes', 'yes');
+
+INSERT INTO seller_listing VALUES('1', 'sgrc', 'Molasses (tonne/month)', '2', 'byProduct');
+INSERT INTO seller_listing VALUES('2', 'mrgl', 'Industrial Ice Cream Machine (2016 Model)', '2', 'equipment');
