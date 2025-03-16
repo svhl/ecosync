@@ -234,7 +234,7 @@ app.get("/listings", (req, res) => {
 						);
 
 						return {
-							username: listing.username,
+							industry: listing.industry,
 							contact: listing.contact,
 							product_name: listing.product_name,
 							quantity: listing.quantity,
@@ -304,7 +304,7 @@ app.get("/byprods", (req, res) => {
 						);
 
 						return {
-							username: listing.username,
+							industry: listing.industry,
 							contact: listing.contact,
 							product_name: listing.product_name,
 							quantity: listing.quantity,
@@ -374,7 +374,7 @@ app.get("/equip", (req, res) => {
 						);
 
 						return {
-							username: listing.username,
+							industry: listing.industry,
 							contact: listing.contact,
 							product_name: listing.product_name,
 							quantity: listing.quantity,
