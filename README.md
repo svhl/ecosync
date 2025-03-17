@@ -4,7 +4,7 @@ Connecting industries to optimize resource usage, reduce waste, and promote circ
 
 ## About EcoSync
 
-This project was developed in 36 hours during HackS'US Edition IV conducted by Rajagiri School of Engineering and Technology, Kerala. It addresses the theme of "Responsible Consumption and Production," an aspect of the 12th United Nations Sustainable Development Goal.
+This project was developed in 36 hours during HackS'US Edition IV conducted by Rajagiri School of Engineering and Technology, Kerala. It addresses the theme of "Responsible Consumption and Production," an aspect of the United Nations Sustainable Development Goals.
 
 ## Features
 
