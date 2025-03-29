@@ -2,27 +2,36 @@ const express = require("express");
 const mysql = require("mysql2");
 const session = require("express-session");
 const bodyParser = require("body-parser");
+require("dotenv").config(); // Load environment variables from .env file
+
 const app = express();
-app.use(express.json()); // Allows Express to parse JSON body
+app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(
 	session({
-		secret: "secret",
+		secret: process.env.SESSION_SECRET, // Use environment variable for session secret
 		resave: false,
 		saveUninitialized: true,
 	})
 );
 
 const db = mysql.createConnection({
-	host: "localhost",
-	user: "root",
-	password: "password",
-	database: "mydatabase",
+	host: process.env.DB_HOST, // Aiven database host
+	user: process.env.DB_USER, // Aiven database user
+	password: process.env.DB_PASSWORD, // Aiven database password
+	database: process.env.DB_NAME, // Aiven database name
+	port: process.env.DB_PORT || 3000, // Aiven database port
+	ssl: {
+		rejectUnauthorized: true, // Ensure SSL is used for secure connection
+	},
 });
 
 db.connect((err) => {
-	if (err) throw err;
+	if (err) {
+		console.error("Database connection failed:", err);
+		process.exit(1); // Exit if database connection fails
+	}
 	console.log("Database connected.");
 });
 
@@ -164,8 +173,10 @@ app.post("/submit-listing", (req, res) => {
 	);
 });
 
-app.listen(3000, () => {
-	console.log("Server running on http://localhost:3000");
+app.listen(process.env.PORT || 3000, () => {
+	console.log(
+		`Server running on http://localhost:${process.env.PORT || 3000}`
+	);
 });
 
 app.get("/get-user-status", (req, res) => {
