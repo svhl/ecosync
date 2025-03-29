@@ -6,13 +6,14 @@ require("dotenv").config(); // Load environment variables from .env file
 
 const app = express();
 app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(
 	session({
 		secret: process.env.SESSION_SECRET, // Use environment variable for session secret
 		resave: false,
 		saveUninitialized: true,
+		cookie: { secure: false },
 	})
 );
 
@@ -21,16 +22,16 @@ const db = mysql.createConnection({
 	user: process.env.DB_USER, // Aiven database user
 	password: process.env.DB_PASSWORD, // Aiven database password
 	database: process.env.DB_NAME, // Aiven database name
-	port: process.env.DB_PORT || 3000, // Aiven database port
+	port: process.env.DB_PORT, // Aiven database port
 	ssl: {
-		rejectUnauthorized: false, // Accept self-signed certificates
+		rejectUnauthorized: false, // Ensure SSL is used for secure connection
 	},
 });
 
 db.connect((err) => {
 	if (err) {
 		console.error("Database connection failed:", err);
-		process.exit(1); // Exit if database connection fails
+		return;
 	}
 	console.log("Database connected.");
 });
@@ -54,19 +55,24 @@ app.post("/signup", (req, res) => {
 // User Login
 app.post("/login", (req, res) => {
 	const { username, password } = req.body;
-	const query =
-		'SELECT * FROM users WHERE username = ? AND password = ? AND approved = "yes"';
-	db.query(query, [username, password], (err, results) => {
-		if (err)
-			return res.json({ success: false, message: "Error logging in." });
-		if (results.length > 0) {
+	const query = "SELECT * FROM users WHERE username = ?";
+	db.query(query, [username], (err, results) => {
+		if (err) {
+			console.error("Error querying user:", err);
+			return res.status(500).json({ error: "Database query error" });
+		}
+		if (results.length === 0) {
+			return res
+				.status(401)
+				.json({ error: "Invalid username or password" });
+		}
+		const user = results[0];
+		if (user.password === password) {
+			// Replace with bcrypt.compareSync
 			req.session.user = username;
-			res.json({ success: true, redirect: "/dashboard.html" }); // Send redirect URL in response
+			res.status(200).json({ message: "Login successful" });
 		} else {
-			res.json({
-				success: false,
-				message: "Invalid credentials or not approved.",
-			});
+			res.status(401).json({ error: "Invalid username or password" });
 		}
 	});
 });
