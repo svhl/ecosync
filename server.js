@@ -23,7 +23,7 @@ const db = mysql.createConnection({
 	database: process.env.DB_NAME, // Aiven database name
 	port: process.env.DB_PORT || 3000, // Aiven database port
 	ssl: {
-		rejectUnauthorized: true, // Ensure SSL is used for secure connection
+		rejectUnauthorized: false, // Accept self-signed certificates
 	},
 });
 
