@@ -1,66 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<title>EcoSync | Buy Equipment</title>
-		<link rel="stylesheet" type="text/css" , href="buy.css" />
-		<script>
-			function checkSellPermission() {
-				fetch("/get-user-status")
-					.then((response) => response.json())
-					.then((user) => {
-						if (user.sell === "no") {
-							window.location.href = "sell-approval.html";
-						} else if (user.sell === "pending") {
-							window.location.href = "sell-pending.html";
-						} else {
-							window.location.href = "sell-page.html";
-						}
-					});
-			}
+    <head>
+        <meta charset="UTF-8" />
+        <title>EcoSync | Buy Equipment</title>
+        <link rel="stylesheet" type="text/css" , href="buy.css" />
+        <script>
+            function checkSellPermission() {
+                fetch("/get-user-status")
+                    .then((response) => response.json())
+                    .then((user) => {
+                        if (user.sell === "no") {
+                            window.location.href = "sell-approval.html";
+                        } else if (user.sell === "pending") {
+                            window.location.href = "sell-pending.html";
+                        } else {
+                            window.location.href = "sell-page.html";
+                        }
+                    });
+            }
 
-			document.addEventListener("DOMContentLoaded", () => {
-				fetch("/equip")
-					.then((response) => response.json())
-					.then((data) => {
-						const listingsContainer =
-							document.getElementById("listings");
-						data.forEach((listing) => {
-							if (listing.type == "equipment") {
-								const listingElement =
-									document.createElement("div");
-								listingElement.innerHTML = `
-								<h2>${listing.product_name}</h2>
-								<p>Company: ${listing.industry}</p>
-								<p>Contact: ${listing.contact}</p>
-								<p>Quantity: ${listing.quantity}</p>
-								<p>Distance: ${listing.coord_difference} km</p>
-								<hr>
-							`;
-								listingsContainer.appendChild(listingElement);
-							}
-						});
-					})
-					.catch((error) =>
-						console.error("Error fetching listings:", error)
-					);
-			});
-		</script>
-	</head>
-	<body>
-		<nav>
-			<a href="#" onclick="checkSellPermission()">Sell</a>
-			<a href="buy-raw-materials.html">Buy raw materials</a>
+            document.addEventListener("DOMContentLoaded", () => {
+                fetch("/equip")
+                    .then((response) => response.json())
+                    .then((result) => {
+                        if (result.success) {
+                            const listingsContainer =
+                                document.getElementById("listings");
+                            listingsContainer.innerHTML = ""; // Clear existing content
+                            result.data.forEach((listing) => {
+                                const listingElement =
+                                    document.createElement("div");
+                                listingElement.innerHTML = `
+									<h2>${listing.product_name}</h2>
+									<p>Company: ${listing.industry}</p>
+									<p>Contact: ${listing.contact}</p>
+									<p>Quantity: ${listing.quantity}</p>
+									<p>Distance: ${listing.coord_difference} km</p>
+									<hr>
+								`;
+                                listingsContainer.appendChild(listingElement);
+                            });
+                        } else {
+                            console.error("Error fetching equipment:", result);
+                        }
+                    })
+                    .catch((error) =>
+                        console.error(
+                            "Error fetching equipment listings:",
+                            error
+                        )
+                    );
+            });
+        </script>
+    </head>
+    <body>
+        <nav>
+            <a href="#" onclick="checkSellPermission()">Sell</a>
+            <a href="buy-raw-materials.html">Buy raw materials</a>
 
-			<a href="buy-byproducts.html">Buy by-products</a>
+            <a href="buy-byproducts.html">Buy by-products</a>
 
-			<a href="buy-equip.html">Buy equipment</a>
+            <a href="buy-equip.html">Buy equipment</a>
 
-			<button class="logout" onclick="window.location.href='login.html'">
-				Logout
-			</button>
-		</nav>
-		<h1><span class="half">Available</span>equipment</h1>
-		<div id="listings"></div>
-	</body>
+            <button class="logout" onclick="window.location.href='login.html'">
+                Logout
+            </button>
+        </nav>
+        <h1><span class="half">Available</span>equipment</h1>
+        <div id="listings"></div>
+    </body>
 </html>

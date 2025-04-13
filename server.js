@@ -1,10 +1,4 @@
 require("dotenv").config(); // Use default .env file
-console.log("Database Config:", {
-    host: process.env.AIVEN_HOST,
-    user: process.env.AIVEN_USER,
-    database: process.env.AIVEN_DATABASE,
-    port: process.env.AIVEN_PORT,
-}); // Debug log to verify environment variables
 const express = require("express");
 const mysql = require("mysql2");
 const session = require("express-session");
@@ -40,13 +34,24 @@ db.connect((err) => {
 // User Signup
 app.post("/signup", (req, res) => {
     const { username, password, industry, map, contact, type } = req.body;
+
+    // Validate required fields
+    if (!username || !password || !industry || !map || !contact || !type) {
+        console.error("Missing required fields:", req.body); // Log missing fields
+        return res.status(400).send("Missing required fields.");
+    }
+
     const query =
-        'INSERT INTO users (username, password, industry, map, contact, type, approved, sell) VALUES (?, ?, ?, ?, ?, ?, "no", "no")';
+        "INSERT INTO users (username, password, industry, map, contact, type, approved, sell) VALUES (?, ?, ?, ?, ?, ?, 'no', 'no')"; // Use single quotes for ENUM values
+
     db.query(
         query,
         [username, password, industry, map, contact, type],
         (err) => {
-            if (err) return res.send("Error signing up.");
+            if (err) {
+                console.error("Error inserting user into database:", err); // Log database error
+                return res.status(500).send("Error signing up.");
+            }
             res.redirect("/login.html");
         }
     );
@@ -62,10 +67,8 @@ app.post("/login", (req, res) => {
             console.error("Database error:", err); // Log database errors
             return res.json({ success: false, message: "Error logging in." });
         }
-        console.log("Query results:", results); // Debug log for query results
         if (results.length > 0) {
             req.session.user = username;
-            console.log("Session user set:", req.session.user); // Debug log for session
             res.json({ success: true, redirect: "/dashboard.html" });
         } else {
             res.json({
@@ -92,9 +95,14 @@ app.post("/admin-login", (req, res) => {
 
 // Fetch Unapproved Users for Signup
 app.get("/unapproved-users", (req, res) => {
-    if (!req.session.admin) return res.send("Unauthorized");
-    db.query('SELECT * FROM users WHERE approved = "no"', (err, results) => {
-        if (err) return res.send("Error fetching users.");
+    if (!req.session.admin) return res.status(401).send("Unauthorized");
+
+    const query = "SELECT * FROM users WHERE approved = 'no'"; // Use single quotes for ENUM value
+    db.query(query, (err, results) => {
+        if (err) {
+            console.error("Error fetching unapproved users:", err); // Log database error
+            return res.status(500).send("Error fetching users.");
+        }
         res.json(results);
     });
 });
@@ -102,7 +110,7 @@ app.get("/unapproved-users", (req, res) => {
 // Fetch Users Pending Sell Approval
 app.get("/pending-sell-approvals", (req, res) => {
     if (!req.session.admin) return res.send("Unauthorized");
-    db.query('SELECT * FROM users WHERE sell = "pending"', (err, results) => {
+    db.query("SELECT * FROM users WHERE sell = 'pending'", (err, results) => {
         if (err) return res.send("Error fetching sell approvals.");
         res.json(results);
     });
@@ -116,7 +124,7 @@ app.post("/approve-user", (req, res) => {
     if (!username) return res.status(400).send("Missing username.");
 
     db.query(
-        'UPDATE users SET approved = "yes" WHERE username = ?',
+        "UPDATE users SET approved = 'yes' WHERE username = ?",
         [username],
         (err) => {
             if (err) return res.status(500).send("Error approving user.");
@@ -133,7 +141,7 @@ app.post("/approve-sell", (req, res) => {
     if (!username) return res.status(400).send("Missing username.");
 
     db.query(
-        'UPDATE users SET sell = "yes" WHERE username = ?',
+        "UPDATE users SET sell = 'yes' WHERE username = ?",
         [username],
         (err) => {
             if (err) return res.status(500).send("Error approving selling.");
@@ -147,7 +155,7 @@ app.post("/request-sell", (req, res) => {
     if (!req.session.user) return res.send("Unauthorized");
     const username = req.session.user;
     db.query(
-        'UPDATE users SET sell = "pending" WHERE username = ?',
+        "UPDATE users SET sell = 'pending' WHERE username = ?",
         [username],
         (err) => {
             if (err) return res.send("Error requesting sell approval.");
@@ -199,7 +207,6 @@ app.get("/get-user-status", (req, res) => {
 app.get("/listings", (req, res) => {
     if (!req.session.user) return res.status(401).send("Unauthorized");
 
-    // Get logged-in user's coordinates
     db.query(
         "SELECT map FROM users WHERE username = ?",
         [req.session.user],
@@ -209,15 +216,14 @@ app.get("/listings", (req, res) => {
 
             const userCoords = userResult[0].map.split(",").map(Number);
 
-            // Fetch seller listings with coordinates
             const query = `
-				SELECT u.username, u.industry, u.contact, u.map, s.product_name, s.quantity, s.type
-				FROM seller_listing s
-				JOIN users u ON s.username = u.username
-				WHERE u.approved = "yes" AND u.sell = "yes"
-			`;
+                SELECT u.username, u.industry, u.contact, u.map, s.product_name, s.quantity, s.type
+                FROM seller_listing s
+                JOIN users u ON s.username = u.username
+                WHERE u.approved = 'yes' AND u.sell = 'yes' AND u.username != ?
+            `;
 
-            db.query(query, (err, results) => {
+            db.query(query, [req.session.user], (err, results) => {
                 if (err)
                     return res.status(500).send("Error fetching listings.");
 
@@ -226,7 +232,7 @@ app.get("/listings", (req, res) => {
                 const haversineDistance = (lat1, lon1, lat2, lon2) => {
                     const R = 6371; // Earth's radius in km
                     const dLat = toRadians(lat2 - lat1);
-                    const dLon = toRadians(lon2 - lon1);
+                    const dLon = toRadians(lat2 - lon1);
                     const a =
                         Math.sin(dLat / 2) * Math.sin(dLat / 2) +
                         Math.cos(toRadians(lat1)) *
@@ -237,30 +243,26 @@ app.get("/listings", (req, res) => {
                     return R * c; // Distance in km
                 };
 
-                const listings = results
-                    .map((listing) => {
-                        const sellerCoords = listing.map.split(",").map(Number);
-                        const distanceKm = haversineDistance(
-                            userCoords[0],
-                            userCoords[1],
-                            sellerCoords[0],
-                            sellerCoords[1]
-                        );
+                const listings = results.map((listing) => {
+                    const sellerCoords = listing.map.split(",").map(Number);
+                    const distanceKm = haversineDistance(
+                        userCoords[0],
+                        userCoords[1],
+                        sellerCoords[0],
+                        sellerCoords[1]
+                    );
 
-                        return {
-                            industry: listing.industry,
-                            contact: listing.contact,
-                            product_name: listing.product_name,
-                            quantity: listing.quantity,
-                            type: listing.type,
-                            coord_difference: distanceKm.toFixed(2), // Distance in km
-                        };
-                    })
-                    .filter(
-                        (listing) => parseFloat(listing.coord_difference) > 0
-                    ); // Filter out listings with 0.0 km distance
+                    return {
+                        industry: listing.industry,
+                        contact: listing.contact,
+                        product_name: listing.product_name,
+                        quantity: listing.quantity,
+                        type: listing.type,
+                        coord_difference: parseFloat(distanceKm.toFixed(2)), // Ensure numeric distance
+                    };
+                });
 
-                res.json(listings);
+                res.json({ success: true, data: listings }); // Wrap response in an object
             });
         }
     );
@@ -269,7 +271,6 @@ app.get("/listings", (req, res) => {
 app.get("/byprods", (req, res) => {
     if (!req.session.user) return res.status(401).send("Unauthorized");
 
-    // Get logged-in user's coordinates
     db.query(
         "SELECT map FROM users WHERE username = ?",
         [req.session.user],
@@ -279,24 +280,23 @@ app.get("/byprods", (req, res) => {
 
             const userCoords = userResult[0].map.split(",").map(Number);
 
-            // Fetch seller listings with coordinates
             const query = `
-				SELECT u.username, u.industry, u.contact, u.map, s.product_name, s.quantity, s.type
-				FROM seller_listing s
-				JOIN users u ON s.username = u.username
-				WHERE u.approved = "yes" AND u.sell = "yes"
-			`;
+                SELECT u.username, u.industry, u.contact, u.map, s.product_name, s.quantity, s.type
+                FROM seller_listing s
+                JOIN users u ON s.username = u.username
+                WHERE u.approved = 'yes' AND u.sell = 'yes' AND s.type = 'byProduct' AND u.username != ?
+            `;
 
-            db.query(query, (err, results) => {
+            db.query(query, [req.session.user], (err, results) => {
                 if (err)
-                    return res.status(500).send("Error fetching listings.");
+                    return res.status(500).send("Error fetching by-products.");
 
                 const toRadians = (degrees) => (degrees * Math.PI) / 180;
 
                 const haversineDistance = (lat1, lon1, lat2, lon2) => {
                     const R = 6371; // Earth's radius in km
                     const dLat = toRadians(lat2 - lat1);
-                    const dLon = toRadians(lon2 - lon1);
+                    const dLon = toRadians(lat2 - lon1);
                     const a =
                         Math.sin(dLat / 2) * Math.sin(dLat / 2) +
                         Math.cos(toRadians(lat1)) *
@@ -307,30 +307,25 @@ app.get("/byprods", (req, res) => {
                     return R * c; // Distance in km
                 };
 
-                const listings = results
-                    .map((listing) => {
-                        const sellerCoords = listing.map.split(",").map(Number);
-                        const distanceKm = haversineDistance(
-                            userCoords[0],
-                            userCoords[1],
-                            sellerCoords[0],
-                            sellerCoords[1]
-                        );
+                const byProducts = results.map((listing) => {
+                    const sellerCoords = listing.map.split(",").map(Number);
+                    const distanceKm = haversineDistance(
+                        userCoords[0],
+                        userCoords[1],
+                        sellerCoords[0],
+                        sellerCoords[1]
+                    );
 
-                        return {
-                            industry: listing.industry,
-                            contact: listing.contact,
-                            product_name: listing.product_name,
-                            quantity: listing.quantity,
-                            type: listing.type,
-                            coord_difference: distanceKm.toFixed(2), // Distance in km
-                        };
-                    })
-                    .filter(
-                        (listing) => parseFloat(listing.coord_difference) > 0
-                    ); // Filter out listings with 0.0 km distance
+                    return {
+                        industry: listing.industry,
+                        contact: listing.contact,
+                        product_name: listing.product_name,
+                        quantity: listing.quantity,
+                        coord_difference: parseFloat(distanceKm.toFixed(2)), // Ensure numeric distance
+                    };
+                });
 
-                res.json(listings);
+                res.json({ success: true, data: byProducts }); // Wrap response in an object
             });
         }
     );
@@ -339,7 +334,6 @@ app.get("/byprods", (req, res) => {
 app.get("/equip", (req, res) => {
     if (!req.session.user) return res.status(401).send("Unauthorized");
 
-    // Get logged-in user's coordinates
     db.query(
         "SELECT map FROM users WHERE username = ?",
         [req.session.user],
@@ -349,24 +343,23 @@ app.get("/equip", (req, res) => {
 
             const userCoords = userResult[0].map.split(",").map(Number);
 
-            // Fetch seller listings with coordinates
             const query = `
-				SELECT u.username, u.industry, u.contact, u.map, s.product_name, s.quantity, s.type
-				FROM seller_listing s
-				JOIN users u ON s.username = u.username
-				WHERE u.approved = "yes" AND u.sell = "yes"
-			`;
+                SELECT u.username, u.industry, u.contact, u.map, s.product_name, s.quantity, s.type
+                FROM seller_listing s
+                JOIN users u ON s.username = u.username
+                WHERE u.approved = 'yes' AND u.sell = 'yes' AND s.type = 'equipment' AND u.username != ?
+            `;
 
-            db.query(query, (err, results) => {
+            db.query(query, [req.session.user], (err, results) => {
                 if (err)
-                    return res.status(500).send("Error fetching listings.");
+                    return res.status(500).send("Error fetching equipment.");
 
                 const toRadians = (degrees) => (degrees * Math.PI) / 180;
 
                 const haversineDistance = (lat1, lon1, lat2, lon2) => {
                     const R = 6371; // Earth's radius in km
                     const dLat = toRadians(lat2 - lat1);
-                    const dLon = toRadians(lon2 - lon1);
+                    const dLon = toRadians(lat2 - lon1);
                     const a =
                         Math.sin(dLat / 2) * Math.sin(dLat / 2) +
                         Math.cos(toRadians(lat1)) *
@@ -377,30 +370,25 @@ app.get("/equip", (req, res) => {
                     return R * c; // Distance in km
                 };
 
-                const listings = results
-                    .map((listing) => {
-                        const sellerCoords = listing.map.split(",").map(Number);
-                        const distanceKm = haversineDistance(
-                            userCoords[0],
-                            userCoords[1],
-                            sellerCoords[0],
-                            sellerCoords[1]
-                        );
+                const equipment = results.map((listing) => {
+                    const sellerCoords = listing.map.split(",").map(Number);
+                    const distanceKm = haversineDistance(
+                        userCoords[0],
+                        userCoords[1],
+                        sellerCoords[0],
+                        sellerCoords[1]
+                    );
 
-                        return {
-                            industry: listing.industry,
-                            contact: listing.contact,
-                            product_name: listing.product_name,
-                            quantity: listing.quantity,
-                            type: listing.type,
-                            coord_difference: distanceKm.toFixed(2), // Distance in km
-                        };
-                    })
-                    .filter(
-                        (listing) => parseFloat(listing.coord_difference) > 0
-                    ); // Filter out listings with 0.0 km distance
+                    return {
+                        industry: listing.industry,
+                        contact: listing.contact,
+                        product_name: listing.product_name,
+                        quantity: listing.quantity,
+                        coord_difference: parseFloat(distanceKm.toFixed(2)), // Ensure numeric distance
+                    };
+                });
 
-                res.json(listings);
+                res.json({ success: true, data: equipment }); // Wrap response in an object
             });
         }
     );
