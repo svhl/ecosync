@@ -24,6 +24,13 @@ This project was developed in 36 hours during HackS'US Edition IV conducted by R
 
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white) ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
 
+## Hosting
+
+The Frontend and Node.js are hosted on [Redner](https://render.com/).
+
+The MySQL database is hosted on [Aiven](https://aiven.io/).
+
+
 ## How to use
 
 ### Prerequisites
@@ -43,7 +50,38 @@ Start the server by running
 node server.js
 ```
 
-The site can be viewed at [http://localhost:3000](http://localhost:3000).
+The site can be viewed at [EcoSync](https://ecosync-jgwp.onrender.com).
+
+## Database
+
+### Admins Table
+
+| username | password  |
+|----------|-----------|
+| admin    | admin123  |
+
+### Users Table
+
+| username | password | industry       | map                                  | contact      | type             | approved | sell |
+|----------|----------|----------------|--------------------------------------|--------------|------------------|----------|------|
+| a        | a        | ABC            | 17.870020716102545,75.84960937500001 | 2132112354   | Biscuit Industry | yes      | yes  |
+| Merriboy | 123      | Merriboy       | 8.685475983345134,76.95739757269622  | 8219323910   | Dairy Industry   | yes      | yes  |
+| Milma    | 123654   | Milma          | 12.56457223807264,76.42089843750001  | 345678975    | Dairy Industry   | yes      | yes  |
+
+### Seller Listing Table
+
+| list_id | username | product_name | quantity | type        |
+|---------|----------|--------------|----------|-------------|
+| 8       | Milma    | Milk         | 1000     | rawMaterial |
+| 10      | Merriboy | Cows         | 50       | rawMaterial |
+| 11      | Milma    | Peda         | 2000     | rawMaterial |
+| 12      | Milma    | Mixer        | 200      | equipment   |
+| 13      | Milma    | Whey         | 50       | byProduct   |
+| 14      | Merriboy | Lactose      | 30       | byProduct   |
+| 15      | Merriboy | Sugar        | 200      | byProduct   |
+| 16      | Milma    | Umbrella     | 500      | equipment   |
+
+
 
 ## About the devs
 
