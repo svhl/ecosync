@@ -26,10 +26,42 @@ This project was developed in 36 hours during HackS'US Edition IV conducted by R
 
 ## Hosting
 
-The Frontend and Node.js are hosted on [Redner](https://render.com/).
+The frontend and Node.js are hosted on [Render](https://render.com/), and the MySQL database is hosted on [Aiven](https://aiven.io/).
 
-The MySQL database is hosted on [Aiven](https://aiven.io/).
+The site can be viewed at [ecosync-jgwp.onrender.com](https://ecosync-jgwp.onrender.com).
 
+> [!IMPORTANT]
+> The site may take ~1 min to load.
+>
+> Refer the database below for login credentials.
+
+### Database
+
+#### Admins table
+
+| username | password  |
+|----------|-----------|
+| admin    | admin123  |
+
+#### Users table
+
+| username | password | industry       | map                                  | contact      | type             | approved | sell |
+|----------|----------|----------------|--------------------------------------|--------------|------------------|----------|------|
+| Merriboy | 123      | Merriboy       | 8.685475983345134,76.95739757269622  | 8219323910   | Dairy Industry   | yes      | yes  |
+| Milma    | 123654   | Milma          | 12.56457223807264,76.42089843750001  | 345678975    | Dairy Industry   | yes      | yes  |
+
+#### Seller Listing table
+
+| list_id | username | product_name | quantity | type        |
+|---------|----------|--------------|----------|-------------|
+| 8       | Milma    | Milk         | 1000     | rawMaterial |
+| 10      | Merriboy | Cows         | 50       | rawMaterial |
+| 11      | Milma    | Peda         | 2000     | rawMaterial |
+| 12      | Milma    | Mixer        | 200      | equipment   |
+| 13      | Milma    | Whey         | 50       | byProduct   |
+| 14      | Merriboy | Lactose      | 30       | byProduct   |
+| 15      | Merriboy | Sugar        | 200      | byProduct   |
+| 16      | Milma    | Umbrella     | 500      | equipment   |
 
 ## How to use
 
@@ -49,39 +81,6 @@ Start the server by running
 ```
 node server.js
 ```
-
-The site can be viewed at [EcoSync](https://ecosync-jgwp.onrender.com).
-
-## Database
-
-### Admins Table
-
-| username | password  |
-|----------|-----------|
-| admin    | admin123  |
-
-### Users Table
-
-| username | password | industry       | map                                  | contact      | type             | approved | sell |
-|----------|----------|----------------|--------------------------------------|--------------|------------------|----------|------|
-| a        | a        | ABC            | 17.870020716102545,75.84960937500001 | 2132112354   | Biscuit Industry | yes      | yes  |
-| Merriboy | 123      | Merriboy       | 8.685475983345134,76.95739757269622  | 8219323910   | Dairy Industry   | yes      | yes  |
-| Milma    | 123654   | Milma          | 12.56457223807264,76.42089843750001  | 345678975    | Dairy Industry   | yes      | yes  |
-
-### Seller Listing Table
-
-| list_id | username | product_name | quantity | type        |
-|---------|----------|--------------|----------|-------------|
-| 8       | Milma    | Milk         | 1000     | rawMaterial |
-| 10      | Merriboy | Cows         | 50       | rawMaterial |
-| 11      | Milma    | Peda         | 2000     | rawMaterial |
-| 12      | Milma    | Mixer        | 200      | equipment   |
-| 13      | Milma    | Whey         | 50       | byProduct   |
-| 14      | Merriboy | Lactose      | 30       | byProduct   |
-| 15      | Merriboy | Sugar        | 200      | byProduct   |
-| 16      | Milma    | Umbrella     | 500      | equipment   |
-
-
 
 ## About the devs
 
