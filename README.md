@@ -82,6 +82,8 @@ Start the server by running
 node server.js
 ```
 
+The site can be viewed at [http://localhost:3000](http://localhost:3000).
+
 ## About the devs
 
 Darsan Prasad | Frontend | [GitHub](https://github.com/darshan-jpeg)
